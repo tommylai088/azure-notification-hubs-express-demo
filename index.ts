@@ -39,7 +39,7 @@ app.post('/notifications/installation', async (req: Request, res: Response) => {
     if (success) {
         res.send('Device is successfully registered')
     } else {
-        res.send('Fail')
+        res.send('Device registration failed')
     };
 });
 
@@ -76,9 +76,9 @@ app.delete('/notifications/delete-installation', async (req: Request, res: Respo
     let installationId = req.query?.installationId as string;
     const success = await deleteInstallationByIdAsync(installationId);
     if (success) {
-        res.send('Success');
+        res.send('Successfully deleted');
     } else {
-        res.send('Fail');
+        res.send('Delete failed');
     }
 });
 
@@ -106,7 +106,7 @@ app.post('/notifications/push-notification', (req: Request, res: Response) => {
 const requestNotificationAsync = async (notificationRequest: NotificationRequest) => {
     let notifications: any[] = [];
     let platform = [];
-    if(typeof notificationRequest.platform == 'string') {
+    if (typeof notificationRequest.platform == 'string') {
         platform = [notificationRequest.platform];
     } else {
         platform = [...notificationRequest.platform]
