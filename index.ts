@@ -27,7 +27,7 @@ const initNotificationHubsClient = () => {
 }
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('hello world');
+    res.sendFile('index.html', { root: '.' });
 });
 
 app.listen(port, () => {
