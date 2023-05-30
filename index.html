@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Azure Notification Nodejs Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    .card-header-bg {
+        background-color: #15539a;
+        color: #fff;
+    }
+    .submit-btn {
+        background-color: #15539a;
+        color: #fff;
+        border-color: #fff;
+        border-radius: 8.5px;
+    }
+
+    .submit-btn:hover {
+        background-color: #fff;
+        color: #15539a;
+        border-color: #15539a;
+    }
+
+    .check-box-group .form-check-input:checked {
+        background-color: #15539a;
+        border-color: #15539a;
+    }
+    .check-box-group .form-check-input[type='checkbox'] {
+        color: #fff;
+    }
+    
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-3 mb-3">Azure Notification Nodejs Demo</h1>
+        <div class="card">
+            <div class="card-header card-header-bg">Form</div>
+            <div class="card-body">
+                <form method="POST" action="/notifications/push-notification" id="form">
+                    <div class="mb-3">
+                        <label>Platforms</label>
+                        <div class="check-box-group list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" name="platform" type="checkbox" value="ios">
+                                iOS
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" name="platform" type="checkbox" value="android">
+                                Android
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input placeholder="Title" type="text" name="title" id="title" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Message</label>
+                        <textarea placeholder="Message" name="message" id="message" class="form-control"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3 w-100">
+                        <input type="submit" name="submit_button" class="btn submit-btn"
+                            value="Send Push Notification" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    (function () {
+        const form = document.querySelector('#form');
+        const checkboxes = form.querySelectorAll('.check-box-group input');
+        const checkboxLength = checkboxes.length;
+        const firstCheckbox = checkboxLength > 0 ? checkboxes[0] : null;
+
+        function init() {
+            if (firstCheckbox) {
+                for (let i = 0; i < checkboxLength; i++) {
+                    checkboxes[i].addEventListener('change', checkValidity);
+                }
+
+                checkValidity();
+            }
+        }
+
+        function isChecked() {
+            for (let i = 0; i < checkboxLength; i++) {
+                if (checkboxes[i].checked) return true;
+            }
+
+            return false;
+        }
+
+        function checkValidity() {
+            const errorMessage = !isChecked() ? 'At least one checkbox must be selected.' : '';
+            firstCheckbox.setCustomValidity(errorMessage);
+        }
+
+        init();
+    })();
+</script>
+
+</html>
