@@ -12,7 +12,7 @@ npm install
 Open index.ts
 In line 19, you can replace it with your azure notification config
 
-You need to build it and start the node server.
+Build it and start the node server.
 ```sh
 npm run build
 ```
